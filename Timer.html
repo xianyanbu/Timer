@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数字时钟</title>
+    <link rel="stylesheet" type="text/css" href="style/timer.css">
+</head>
+<body>
+<div id="container">
+    <div id="img"> <img src="images/title.png"></div>
+ <div id="date">
+ <p>
+    <img  class="date" src="images/0.png">
+    <img  class="date" src="images/0.png">
+    <img  class="date" src="images/0.png">
+    <img  class="date" src="images/0.png">
+    <img src="images/year.png">
+    <img  class="date" src="images/0.png">
+    <img  class="date" src="images/0.png">
+    <img src="images/month.png">
+    <img  class="date" src="images/0.png">
+    <img  class="date" src="images/0.png">
+    <img src="images/seven.png">
+  </p>
+</div>
+<div id="time">
+    <p>
+        <img  class="time" src="images/0.png">
+        <img  class="time" src="images/0.png">
+        <img src="images/sign.png">
+        <img  class="time" src="images/0.png">
+        <img  class="time" src="images/0.png">
+        <img src="images/sign.png">
+        <img  class="time" src="images/0.png">
+        <img  class="time" src="images/0.png">
+        <img src="images/week.png">
+        <img  class="time" src="images/0.png">
+    </p>
+</div>
+    <div id="msg">
+        <p>www.ensaving.com.cn </p>
+    </div>
+
+</div>
+  <script type="text/javascript" >
+      var week=["seven","one","two","three","four","five","six"]; //定义星期的显示
+     /**
+      *@描述：将1、2等个位数的数转换成01、02等两位数显示,并转换成字符串类型
+      * @入口参数： num
+      * @返回值 ：{string}
+      */
+     function toDouble(num)
+     {
+         if(num<10)
+            return  "0"+num;
+         else
+            return ""+num;
+     }
+      window.onload=function()
+      {
+          var img_date=document.getElementsByClassName("date");
+          var img_time=document.getElementsByClassName("time");
+
+          /**
+           * @函数名：click()；
+           * @功能：获取当前的日期和时间并获取相应的图片资源
+           */
+          function click()
+          {
+              var nDate=new Date();
+              var time=toDouble(nDate.getHours())+toDouble(nDate.getMinutes())+toDouble(nDate.getSeconds());
+              //获取当前的时间，时分秒。格式为：“xxxxxx”
+              var date=toDouble(nDate.getFullYear())+toDouble(nDate.getMonth()+1)+toDouble(nDate.getDate());
+              //获取当前的日期，年月日
+              for(var i=0;i<img_time.length;i++)
+              {
+                if(i<img_time.length-1)        //取出时分秒
+                  img_time[i].src='images/'+time.charAt(i)+'.png';
+                else        //取出星期
+                    img_time[i].src='images/'+week[nDate.getDay()]+'.png';
+              }
+              for(var j=0;j<img_date.length;j++)   //取出年月日
+              {
+                  img_date[j].src='images/'+date.charAt(j)+'.png';
+              }
+          }
+        setInterval(click,1000);    //延时1000ms，调用一次click()函数。
+          click();
+      }
+  </script>
+</body>
+</html>
